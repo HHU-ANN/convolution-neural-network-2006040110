@@ -15,21 +15,21 @@ from torch.utils.data import DataLoader
     
 
 class NeuralNetwork(nn.Module):
-        def __init__(self, num_classes=10):
-        super(NeuralNetwork, self).__init__()
+       def __init__(self, num_classes=10):
+        super(AlexNet, self).__init__()
 
         self.features = nn.Sequential(
-            nn.Conv2d(3, 64, kernel_size=2),
+            nn.Conv2d(3, 32, kernel_size=2),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=3, stride=2),
-            nn.Conv2d(64, 192, kernel_size=5, padding=2),
+            nn.Conv2d(32, 96, kernel_size=5, padding=2),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=3, stride=2),
-            nn.Conv2d(192, 384, kernel_size=3, padding=1),
+            nn.Conv2d(96, 192, kernel_size=3, padding=1),
             nn.ReLU(inplace=True),
-            nn.Conv2d(384, 256, kernel_size=3, padding=1),
+            nn.Conv2d(192, 128, kernel_size=3, padding=1),
             nn.ReLU(inplace=True),
-            nn.Conv2d(256, 256, kernel_size=3, padding=1),
+            nn.Conv2d(128, 128, kernel_size=3, padding=1),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=3, stride=2)
         )
@@ -38,12 +38,12 @@ class NeuralNetwork(nn.Module):
 
         self.classifier = nn.Sequential(
             nn.Dropout(),
-            nn.Linear(256 * 6 * 6, 4096),
+            nn.Linear(128 * 6 * 6, 1023),
             nn.ReLU(inplace=True),
             nn.Dropout(),
-            nn.Linear(4096, 4096),
+            nn.Linear(1023, 1023),
             nn.ReLU(inplace=True),
-            nn.Linear(4096, num_classes)
+            nn.Linear(1023, num_classes)
         )
 
     def forward(self, x):
@@ -52,7 +52,6 @@ class NeuralNetwork(nn.Module):
         x = x.view(x.size(0), -1)
         x = self.classifier(x)
         return x
-
 def read_data():
     # 这里可自行修改数据预处理，batch大小也可自行调整
     # 保持本地训练的数据读取和这里一致

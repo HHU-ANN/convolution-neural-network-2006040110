@@ -31,8 +31,8 @@ def read_data():
     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 ]
         )
-    dataset_train = torchvision.datasets.CIFAR10(root='../data/exp03', train=True, download=True, transform=torchvision.transforms.ToTensor())
-    dataset_val = torchvision.datasets.CIFAR10(root='../data/exp03', train=False, download=False, transform=torchvision.transforms.ToTensor())
+    dataset_train = torchvision.datasets.CIFAR10(root='../data/exp03', train=True, download=True, transform=transform)
+    dataset_val = torchvision.datasets.CIFAR10(root='../data/exp03', train=False, download=False, transform=transform)
     data_loader_train = DataLoader(dataset=dataset_train, batch_size=batch_size, shuffle=True)
     data_loader_val = DataLoader(dataset=dataset_val, batch_size=batch_size, shuffle=False)
     return dataset_train, dataset_val, data_loader_train, data_loader_val

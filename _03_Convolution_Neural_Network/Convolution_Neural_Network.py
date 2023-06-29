@@ -23,11 +23,14 @@ device = torch.device('cpu')
 def read_data():
     # 这里可自行修改数据预处理，batch大小也可自行调整
     # 保持本地训练的数据读取和这里一致
-    transform = transforms.Compose([
-        transforms.Pad(4),
-        transforms.RandomHorizontalFlip(),
-        transforms.RandomCrop(32),
-        transforms.ToTensor()])
+    transform = transforms.Compose(
+        [
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomCrop(size=32, padding=4),
+    transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+]
+        )
     dataset_train = torchvision.datasets.CIFAR10(root='../data/exp03', train=True, download=True, transform=torchvision.transforms.ToTensor())
     dataset_val = torchvision.datasets.CIFAR10(root='../data/exp03', train=False, download=False, transform=torchvision.transforms.ToTensor())
     data_loader_train = DataLoader(dataset=dataset_train, batch_size=batch_size, shuffle=True)

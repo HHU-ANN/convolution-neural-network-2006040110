@@ -54,8 +54,8 @@ def read_data():
     # 保持本地训练的数据读取和这里一致
     dataset_train = torchvision.datasets.CIFAR10(root='../data/exp03', train=True, download=True, transform=torchvision.transforms.ToTensor())
     dataset_val = torchvision.datasets.CIFAR10(root='../data/exp03', train=False, download=False, transform=torchvision.transforms.ToTensor())
-    data_loader_train = DataLoader(dataset=dataset_train, batch_size=256, shuffle=True)
-    data_loader_val = DataLoader(dataset=dataset_val, batch_size=256, shuffle=False)
+    data_loader_train = DataLoader(dataset=dataset_train, batch_size=8, shuffle=True)
+    data_loader_val = DataLoader(dataset=dataset_val, batch_size=8, shuffle=False)
     return dataset_train, dataset_val, data_loader_train, data_loader_val
 
 def main():

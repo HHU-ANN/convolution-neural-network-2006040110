@@ -58,12 +58,12 @@ class NeuralNetwork(nn.Module):
         self.avgpool = nn.AdaptiveAvgPool2d((6, 6))
         self.classifier = nn.Sequential(
             nn.Dropout(),
-            nn.Linear(256 * 6 * 6, 256),
+            nn.Linear(256 * 6 * 6, 320),
             nn.ReLU(inplace=True),
             nn.Dropout(),
-            nn.Linear(256, 512),
+            nn.Linear(320, 256),
             nn.ReLU(inplace=True),
-            nn.Linear(512, num_classes),
+            nn.Linear(256, num_classes),
         )
 
     def forward(self, x):
